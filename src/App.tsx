@@ -25,6 +25,7 @@ export const App: React.FC = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [headerScrolled, setHeaderScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Hero Product Switcher state
   const [activeHeroKey, setActiveHeroKey] = useState<'starter-kit' | 'ceremonial' | 'latte-mix'>('ceremonial');
@@ -252,6 +253,34 @@ export const App: React.FC = () => {
         </div>
       </div>
 
+      {/* ==================== MOBILE NAVIGATION DRAWER ==================== */}
+      <div 
+        className={`mobile-menu-overlay ${mobileMenuOpen ? 'open' : ''}`}
+        onClick={() => setMobileMenuOpen(false)}
+      />
+      <div className={`mobile-menu-drawer ${mobileMenuOpen ? 'open' : ''}`} id="mobile-menu-drawer">
+        <div className="mobile-menu-header">
+          <span className="logo-wordmark">MATON</span>
+          <button 
+            className="close-mobile-menu-btn" 
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            &times;
+          </button>
+        </div>
+        <nav className="mobile-menu-nav">
+          <ul>
+            <li><a href="#hero" onClick={() => setMobileMenuOpen(false)}>Home</a></li>
+            <li><a href="#starter-kit" onClick={() => setMobileMenuOpen(false)}>Starter Kit</a></li>
+            <li><a href="#products" onClick={() => setMobileMenuOpen(false)}>Products</a></li>
+            <li><a href="#benefits" onClick={() => setMobileMenuOpen(false)}>Wellness</a></li>
+            <li className="mobile-sign-in-li">
+              <a href="#" className="mobile-menu-sign-in-btn" onClick={() => setMobileMenuOpen(false)}>Sign In</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
       {/* ==================== 1) HEADER & NAVIGATION ==================== */}
       <header className={`main-header ${headerScrolled ? 'scrolled' : ''}`} id="main-header">
         <div className="header-container">
@@ -275,6 +304,18 @@ export const App: React.FC = () => {
             >
               <span>My Cart</span>
               <span className="cart-count-badge" id="cart-count-badge">{totalCartItems}</span>
+            </button>
+            
+            {/* Mobile Menu Toggle Button */}
+            <button 
+              className={`mobile-menu-toggle-btn ${mobileMenuOpen ? 'open' : ''}`}
+              id="mobile-menu-toggle-btn"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle Navigation Menu"
+            >
+              <span className="burger-bar" />
+              <span className="burger-bar" />
+              <span className="burger-bar" />
             </button>
           </div>
         </div>
@@ -491,6 +532,30 @@ export const App: React.FC = () => {
               </div>
             </div>
           </div>
+
+          {/* Mobile Hotspot Detail Card */}
+          {activeHotspot && (
+            <div className="hotspot-mobile-details-card">
+              {activeHotspot === 'whisk' && (
+                <>
+                  <h4>Chasen (100-Tine Whisk)</h4>
+                  <p>Hand-carved from a single piece of organic bamboo. 100 fine tines produce the perfect, velvet-smooth matcha froth.</p>
+                </>
+              )}
+              {activeHotspot === 'mug' && (
+                <>
+                  <h4>Chawan (Ceramic Mug)</h4>
+                  <p>Artisan-fired ceramic mug with a warm, earthy glaze. Designed to cradle in both hands, retaining optimal temperature.</p>
+                </>
+              )}
+              {activeHotspot === 'powder' && (
+                <>
+                  <h4>Uji Ceremonial Powder</h4>
+                  <p>100% organic tencha leaves, shade-grown and stone-ground in Kyoto. Rich in L-Theanine and antioxidants.</p>
+                </>
+              )}
+            </div>
+          )}
 
           <div className="starter-kit-action-bar">
             <button 
