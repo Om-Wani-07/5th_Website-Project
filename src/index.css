@@ -526,7 +526,7 @@ svg {
    ========================================================================== */
 .hero-scroll-wrapper {
   background-color: var(--color-dark-green);
-  height: 250vh; /* Scroll track for sequence animation */
+  height: 120vh; /* Scroll track for sequence animation */
   position: relative;
   transition: background-color 0.4s ease;
 }
